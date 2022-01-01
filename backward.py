@@ -24,8 +24,6 @@ class NeuralNetwork:
             bias = np.zeros((self.layers[i + 1], 1))
             self.W.append(weight / self.layers[i])
             self.B.append(bias)
-        print(self.W)
-        print(self.B)
 
     def fit_partial(self, x, y):
         A = [x]
@@ -80,17 +78,8 @@ class NeuralNetwork:
         return -(np.sum(y * np.log(y_predict) + (1 - y) * np.log(1 - y_predict)))
 
 
-# X = [
-#     [[0,0], [0]],
-#     [[0,1], [1]],
-#     [[1,0], [1]],
-#     [[1,1], [0]]
-# ]
 nn = NeuralNetwork(layers=[2, 2, 1])
 X = np.array([[0, 0], [0, 1], [1, 0], [1, 1]])
 y = np.array([0, 1, 1, 0])
-print(X)
-print(y)
 nn.fit(X, y, epochs=10, verbose=1)
-print("----------------")
 print(nn.predict([1, 1]))
