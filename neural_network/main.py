@@ -75,7 +75,7 @@ def process(
         train_err=train_err,
         val_err=val_err,
         filepath=os.path.join(
-            folder, "losses_on_training_and_validation_dataset.png"),
+            folder, "loss_on_training_and_validation_dataset.png"),
     )
     loss, accuracy = nn.test_on_batch(X_test, y_test)
     nn.summary(accuracy=accuracy, loss=loss, training_time=training_time)
@@ -96,34 +96,44 @@ def process(
 if __name__ == "__main__":
     if not os.path.exists("result"):
         os.makedirs("result")
-    # process(
-    #     [3],
-    #     loss_function=SquareLoss,
-    #     optimizer=SGD(),
-    #     epoches=10,
-    #     folder="./requirement_1",
-    # )
-    # process(
-    #     [3],
-    #     loss_function=SquareLoss,
-    #     optimizer=SGD(),
-    #     epoches=500,
-    #     folder="./requirement_2",
-    # )
-    # process(
-    #     [128],
-    #     loss_function=CrossEntropy,
-    #     optimizer=Adam(),
-    #     epoches=100,
-    #     folder="result/requirement_3",
-    # )
-    # process(
-    #     layers=[32, 64, 32],
-    #     loss_function=CrossEntropy,
-    #     optimizer=Adam(),
-    #     epoches=100,
-    #     folder="result/requirement_4",
-    # )
+
+    # MLP with one hidden layer, 3 perceptrons, L2 loss, SGD optimizer, no dropout, 10 epoches
+    process(
+        [3],
+        loss_function=SquareLoss,
+        optimizer=SGD(),
+        epoches=10,
+        folder="result/requirement_1",
+    )
+
+    # MLP with one hidden layer, 3 perceptrons, L2 loss, SGD optimizer, no dropout, 500 epoches
+    process(
+        [3],
+        loss_function=SquareLoss,
+        optimizer=SGD(),
+        epoches=500,
+        folder="result/requirement_2",
+    )
+
+    # MLP with one hidden layer, 128 perceptrons, CE loss, Adam optimizer, no dropout, 100 epoches
+    process(
+        [128],
+        loss_function=CrossEntropy,
+        optimizer=Adam(),
+        epoches=100,
+        folder="result/requirement_3",
+    )
+
+    # MLP with three hidden layer, (32, 64, 32)  perceptrons, CE loss, Adam  optimizer, no dropout, 100 epoches
+    process(
+        layers=[32, 64, 32],
+        loss_function=CrossEntropy,
+        optimizer=Adam(),
+        epoches=100,
+        folder="result/requirement_4",
+    )
+
+    # MLP with three hidden layer, (32, 64, 32)  perceptrons, CE loss, Adam  optimizer, 20% dropout, 100 epoches
     process(
         layers=[32, 64, 32],
         loss_function=CrossEntropy,
